@@ -31,3 +31,13 @@ dependencies {
 tasks.named("test") {
 	useJUnitPlatform()
 }
+jar {
+	archiveBaseName.set('demo-authorizationserver')
+	archiveVersion.set("v"+project.rootProject.version)
+	archiveExtension.set('jar')
+}
+bootJar{
+	archiveBaseName.set('demo-authorizationserver')
+	archiveVersion.set("v"+project.rootProject.version)
+	archiveExtension.set('jar')
+}
