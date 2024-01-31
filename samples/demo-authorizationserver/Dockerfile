@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copie o arquivo .jar para o contêiner
-COPY jar/**.jar /app/demo-authorizationserver.jar
+COPY jar/demo-authorizationserver-v1.3.0-SNAPSHOT.jar /app/demo-authorizationserver.jar
 
 # Exponha a porta 9000
 EXPOSE 9000
