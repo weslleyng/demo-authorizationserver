@@ -21,6 +21,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import sample.authentication.DeviceClientAuthenticationProvider;
 import sample.federation.FederatedIdentityIdTokenCustomizer;
 import sample.jose.Jwks;
@@ -132,19 +133,23 @@ public class AuthorizationServerConfig {
 	@Bean
 	public JdbcRegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
 		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("messaging-client")
-				.clientSecret("{noop}secret")
+				.clientId("df-privacy-client")
+				.clientSecret("{noop}93a5de39ef6b8a140892feafcc8ec21a")
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)//permite fazer chamada POST
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+				.authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
 				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-				.redirectUri("http://127.0.0.1:8080/authorized")
-				.postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
+				.authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
+				.redirectUri("http://127.0.0.1:9000/login/oauth2/code/messaging-client-oidc")
+				.redirectUri("http://127.0.0.1:9000/authorized")
+				.postLogoutRedirectUri("http://127.0.0.1:9000/logged-out")
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.PROFILE)
 				.scope("message.read")
 				.scope("message.write")
+				.tokenSettings(TokenSettings.builder().build())
 				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 				.build();
 

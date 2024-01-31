@@ -52,7 +52,7 @@ public class AuthorizationConsentController {
 	public String consent(Principal principal, Model model,
 			@RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
 			@RequestParam(OAuth2ParameterNames.SCOPE) String scope,
-			@RequestParam(OAuth2ParameterNames.STATE) String state,
+			@RequestParam(name = OAuth2ParameterNames.STATE, required = false) String state,
 			@RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
 
 		// Remove scopes that were already approved
